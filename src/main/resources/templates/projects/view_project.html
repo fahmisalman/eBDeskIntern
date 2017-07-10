@@ -604,7 +604,7 @@
                                               <div class="bio-row">
                                                   <p><span>Project Start Date </span>:  <span th:text ="${project.start_time}"></span></p>
                                               </div>
-                                              <div class="bio-row">
+                                              <div class="bio-row" th:if="${user.role==3}">
                                                   <span>Project Percentage</span>:
                                                   <p><span>1. Android </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_1}+'%'"></span></p>
                                                   <p><span>2. Website </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_2}+'%'"></span></p>
@@ -612,7 +612,7 @@
                                                   <p><span>4. Riset </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_4}+'%'"></span></p>
                                                   
                                               </div>
-                                              <div class="bio-row">
+                                              <div class="bio-row" th:if="${user.role==1}">
                                                   <span>Division Price</span>:
                                                   <p><span>1. Android </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_1}*${project.price}*0.01"></span></p>
                                                   <p><span>2. Website </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_2}*${project.price}*0.01"></span></p>

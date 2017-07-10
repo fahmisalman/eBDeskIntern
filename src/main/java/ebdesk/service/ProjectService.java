@@ -130,8 +130,8 @@ public class ProjectService {
         ps.setPercentage_3(0);
         ps.setPercentage_4(0);
         ps.getProjects().add(project);
-        project.setPercentage(ps);
-        projectRepo.save(project);
+        
+        
         percentRepo.save(ps);
        
 
