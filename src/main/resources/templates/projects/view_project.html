@@ -604,6 +604,23 @@
                                               <div class="bio-row">
                                                   <p><span>Project Start Date </span>:  <span th:text ="${project.start_time}"></span></p>
                                               </div>
+                                              <div class="bio-row">
+                                                  <span>Project Percentage</span>:
+                                                  <p><span>1. Android </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_1}+'%'"></span></p>
+                                                  <p><span>2. Website </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_2}+'%'"></span></p>
+                                                  <p><span>3. Testing </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_3}+'%'"></span></p>
+                                                  <p><span>4. Riset </span>: <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_4}+'%'"></span></p>
+                                                  
+                                              </div>
+                                              <div class="bio-row">
+                                                  <span>Division Price</span>:
+                                                  <p><span>1. Android </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_1}*${project.price}*0.01"></span></p>
+                                                  <p><span>2. Website </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_2}*${project.price}*0.01"></span></p>
+                                                  <p><span>3. Testing </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_3}*${project.price}*0.01"></span></p>
+                                                  <p><span>4. Riset </span>: Rp. <span th:each="percentage : ${percentages}" th:text ="${percentage.percentage_4}*${project.price}*0.01"></span></p>
+                                                  
+                                              </div>
+                                              
 
                                           </div>
                                       </div>
@@ -702,6 +719,41 @@
                                         </div>
 
                                     </div>
+                                        <div class="panel-body">
+                                            <h1>Project Percentages</h1>
+                                            <form class="form-validate form-horizontal" id="feedback_form" method="post" th:action="@{/updateProjectSettings2/{id}(id=${project.id})}">
+                                            <div class="form-group">
+                                            <label for="percentage1" class="control-label col-lg-2">Percentage 1 <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control " id="projectprice" type="number" name="percentage1" th:each="percentage : ${percentages}" th:value="${percentage.percentage_1}" required />
+                                                    </div>
+                                            </div>
+                                            <div class="form-group">
+                                            <label for="percentage2" class="control-label col-lg-2">Percentage 2 <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control " id="projectprice" type="number" name="percentage2" th:each="percentage : ${percentages}" th:value="${percentage.percentage_2}" required />
+                                                    </div>
+                                        </div>
+                                                <div class="form-group">
+                                            <label for="percentage3" class="control-label col-lg-2">Percentage 3 <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control " id="projectprice" type="number" name="percentage3" th:each="percentage : ${percentages}" th:value="${percentage.percentage_3}" required />
+                                                    </div>
+                                        </div>
+                                                <div class="form-group">
+                                            <label for="percentage4" class="control-label col-lg-2">Percentage 4 <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <input class="form-control " id="projectprice" type="number" name="percentage4" th:each="percentage : ${percentages}" th:value="${percentage.percentage_4}" required />
+                                                    </div>
+                                        </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <button class="btn btn-primary" type="submit">Save</button>
+                                                        <button class="btn btn-default" type="button">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                         <div class="panel-body">
                                             <h1> Project Required Skills</h1>
                                             <div class="form">

@@ -76,6 +76,24 @@ public class ProjectService {
 
         return "projects/view_percentage";
     }
+    public String viewPercentages(Model model, HttpSession session){
+
+        ArrayList<Project> projectList = (ArrayList<Project>) projectRepo.findAll();
+        ArrayList<Percentage> percentList = (ArrayList<Percentage>) percentRepo.findAll();
+//        ArrayList<User> userLeaderList = new ArrayList<>();
+        model.addAttribute("projects", projectList);
+        model.addAttribute("percentages", percentList);
+        model.addAttribute("user",session.getAttribute("user"));
+////        model.addAttribute("leader",userRepo.findByRoleAndProjectId(3,1));
+//        for(int i = 0 ; i<projectList.size();i++){
+////            User u = userRepo.findAllByRoleAndProjectId(3,projectList.get(i).getId());
+//            User u = userRepo.findAllByRoleAndProjectId(3,projectList.get(i).getId());
+//            userLeaderList.add(u);
+//        }
+//        model.addAttribute("leaders",userLeaderList);
+
+        return "projects/view_all_percentage";
+    }
     public String viewPercentage(Model model,int id, HttpSession session){
         model.addAttribute("project",projectRepo.findOne(id));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,id));
@@ -89,12 +107,14 @@ public class ProjectService {
         return "projects/view_percentages";
     }
     
+    
 
     public String postNewProject(Model model, HttpSession session, Project project, int idLeader){
         User user = userRepo.findOne(idLeader);
         project.setUserProjects(new HashSet<UserProject>());
 
         UserProject userProject = new UserProject();
+        
 
         userProject.setUser(user);
         userProject.setProject(project);
@@ -102,7 +122,18 @@ public class ProjectService {
 
         project.setCurrent(1);
         project.getUserProjects().add(userProject);
+        
+        Percentage ps = new Percentage();
+        ps.setProjects(new HashSet<Project>());
+        ps.setPercentage_1(0);
+        ps.setPercentage_2(0);
+        ps.setPercentage_3(0);
+        ps.setPercentage_4(0);
+        ps.getProjects().add(project);
+        project.setPercentage(ps);
         projectRepo.save(project);
+        percentRepo.save(ps);
+       
 
         model.addAttribute("projects", projectRepo.findAll());
         model.addAttribute("user",session.getAttribute("user"));
@@ -118,6 +149,7 @@ public class ProjectService {
         model.addAttribute("members",userRepo.findAllByProjectsId(id));
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(id));
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(id));
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
     }
@@ -164,6 +196,30 @@ public class ProjectService {
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
+    }
+    public String updateProjectSetting2(Model model, HttpSession session, int project_id, int percentage1,int percentage2,int percentage3,int percentage4){
+        Set<Project> projects;
+        Percentage percentage = percentRepo.findAllbyProjects(project_id).get(0);
+        Project p = projectRepo.findOne(project_id);
+        percentage.setPercentage_1(percentage1);
+        percentage.setPercentage_2(percentage2);
+        percentage.setPercentage_3(percentage3);
+        percentage.setPercentage_4(percentage4);
+        percentage.getProjects().add(p);
+        p.setPercentage(percentage);
+        
+        
+        percentRepo.save(percentage);
+        model.addAttribute("project",projectRepo.findOne(p.getId()));
+        model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,p.getId()));
+        model.addAttribute("all_users",userRepo.findAllByRole(3));
+        model.addAttribute("users",userRepo.findAllByRoleNotExistInUserProject(3,p.getId()));
+        model.addAttribute("members",userRepo.findAllByProjectsId(p.getId()));
+        model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
+        model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("user",session.getAttribute("user"));
+        return "projects/view_project";
     }
 
     public String updateProjectSkill(Model model, HttpSession session, int project_id, int projectidskill) {

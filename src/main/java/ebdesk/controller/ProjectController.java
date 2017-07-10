@@ -1,7 +1,9 @@
 package ebdesk.controller;
 
+import ebdesk.model.Percentage;
 import ebdesk.model.Project;
 import ebdesk.service.ProjectService;
+import static java.lang.Math.E;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
+import java.util.Spliterator;
 
 /**
  * Created by asuss on 5/26/2017.
@@ -29,6 +34,11 @@ public class ProjectController {
     public String viewAllProjects(Model m, HttpSession s) {
 
         return projectService.viewAllProjects(m,s);
+    }
+    @RequestMapping(value = "/viewAllPercents",method = RequestMethod.GET)
+    public String viewPercentages(Model m, HttpSession s) {
+
+        return projectService.viewPercentages(m,s);
     }
 
     @RequestMapping(value = "/viewProject/{id_project}",method = RequestMethod.GET)
@@ -76,7 +86,9 @@ public class ProjectController {
         pro.setStatus(1);
         pro.setTime(projectwaktu_1 + " " + projectwaktu_2);
         pro.setStart_time(df.format(dateobj));
-
+        Percentage ps = new Percentage();
+        
+        
         return projectService.postNewProject(m,s,pro,projectidleader);
     }
 
@@ -92,6 +104,12 @@ public class ProjectController {
         pro.setStatus(1);
         pro.setTime(projectwaktu_1 + " " + projectwaktu_2);
         return projectService.updateProjectSetting(m,s,pro,projectidleader,projectidleaderbefore);
+    }
+    @RequestMapping(value = "/updateProjectSettings2/{id_project}",method = RequestMethod.POST)
+    public String updateProjectSettings2(Model m, HttpSession s,@PathVariable String id_project,@RequestParam int percentage1,@RequestParam int percentage2,@RequestParam int percentage3,@RequestParam int percentage4){
+        int project_id = Integer.parseInt(id_project);
+        
+        return projectService.updateProjectSetting2(m,s,project_id, percentage1,percentage2,percentage3,percentage4);
     }
 
     @RequestMapping(value = "/updateProjectSkills/{id_project}",method = RequestMethod.POST)

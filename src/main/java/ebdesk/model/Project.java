@@ -43,7 +43,7 @@ public class Project {
 
 //    @ManyToMany(mappedBy = "projects")
 //    private Set<User> users;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "percentage", joinColumns = @JoinColumn(name = "id_project", referencedColumnName = "id"))
     private Percentage percentage;
 

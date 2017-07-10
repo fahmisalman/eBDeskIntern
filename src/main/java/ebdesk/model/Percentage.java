@@ -30,7 +30,7 @@ public class Percentage {
     @NotNull
     private int percentage_4;
     
-    @OneToMany(mappedBy = "percentage")
+    @OneToMany(mappedBy = "percentage",cascade = CascadeType.ALL)
     private Set<Project> projects;
 
     public Percentage() {
