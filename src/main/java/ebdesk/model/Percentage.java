@@ -30,20 +30,25 @@ public class Percentage {
     @NotNull
     private int percentage_4;
     
-    @OneToMany(mappedBy = "percentage",cascade = CascadeType.ALL)
-    private Set<Project> projects;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_project")
+    private Project project;
+    
+    
 
     public Percentage() {
     }
 
-    public Percentage(int id, int percentage_1, int percentage_2, int percentage_3, int percentage_4, Set<Project> projects) {
+    public Percentage(int id, int percentage_1, int percentage_2, int percentage_3, int percentage_4, Project project) {
         this.id = id;
         this.percentage_1 = percentage_1;
         this.percentage_2 = percentage_2;
         this.percentage_3 = percentage_3;
         this.percentage_4 = percentage_4;
-        this.projects = projects;
+        this.project = project;
     }
+
+    
 
     public int getId() {
         return id;
@@ -85,13 +90,15 @@ public class Percentage {
         this.percentage_4 = percentage_4;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setProject(Project project) {
+        this.project = project;
     }
+
+    
     
 
     

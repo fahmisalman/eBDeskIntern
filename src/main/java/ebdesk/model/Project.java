@@ -43,8 +43,8 @@ public class Project {
 
 //    @ManyToMany(mappedBy = "projects")
 //    private Set<User> users;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "percentage", joinColumns = @JoinColumn(name = "id_project", referencedColumnName = "id"))
+    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL, 
+              fetch = FetchType.LAZY, optional = false)
     private Percentage percentage;
 
     @OneToMany(mappedBy = "primaryKey.project",cascade = CascadeType.ALL)
@@ -53,7 +53,8 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, int status, int price, int current, int size, String time, String start_time, Set<Skill> project_skills, Set<UserProject> userProjects) {
+    public Project(int id, String name, int status, int price, int current, int size, String time, String start_time, Set<Skill> project_skills, Percentage percentage, Set<UserProject> userProjects) {
+        this.id = id;
         this.name = name;
         this.status = status;
         this.price = price;
@@ -62,8 +63,11 @@ public class Project {
         this.time = time;
         this.start_time = start_time;
         this.project_skills = project_skills;
+        this.percentage = percentage;
         this.userProjects = userProjects;
     }
+
+    
 
     public Set<Skill> getProject_skills() {
         return project_skills;
@@ -152,5 +156,7 @@ public class Project {
     public void setPercentage(Percentage percentage) {
         this.percentage = percentage;
     }
+
+    
     
 }

@@ -17,6 +17,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ProjectPercentageRepository extends JpaRepository<Percentage, Integer>{
     @Query(value="SELECT * FROM PERCENTAGE p JOIN PROJECT up ON p.id_project = up.id WHERE up.id=?1",nativeQuery=true)
-     public List<Percentage> findAllbyProjects(int id);
+     public Percentage findAllbyProjects(int id);
      
 }

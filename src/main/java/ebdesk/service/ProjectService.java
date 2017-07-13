@@ -124,18 +124,16 @@ public class ProjectService {
         project.getUserProjects().add(userProject);
         
         Percentage ps = new Percentage();
-        ps.setProjects(new HashSet<Project>());
-        ps.setPercentage_1(0);
-        ps.setPercentage_2(0);
-        ps.setPercentage_3(0);
-        ps.setPercentage_4(0);
-        ps.getProjects().add(project);
+        project.setPercentage(ps);
+       
         
         
         percentRepo.save(ps);
+        projectRepo.save(project);
        
 
         model.addAttribute("projects", projectRepo.findAll());
+        
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_all_projects";
     }
@@ -199,13 +197,13 @@ public class ProjectService {
     }
     public String updateProjectSetting2(Model model, HttpSession session, int project_id, int percentage1,int percentage2,int percentage3,int percentage4){
         Set<Project> projects;
-        Percentage percentage = percentRepo.findAllbyProjects(project_id).get(0);
+        Percentage percentage = percentRepo.findAllbyProjects(project_id);
         Project p = projectRepo.findOne(project_id);
         percentage.setPercentage_1(percentage1);
         percentage.setPercentage_2(percentage2);
         percentage.setPercentage_3(percentage3);
         percentage.setPercentage_4(percentage4);
-        percentage.getProjects().add(p);
+        percentage.setProject(p);
         p.setPercentage(percentage);
         
         
