@@ -124,13 +124,13 @@ public class ProjectService {
         project.getUserProjects().add(userProject);
         
         Percentage ps = new Percentage();
-        project.setPercentage(ps);
+        ps.setProject(project);
        
         
         
-        percentRepo.save(ps);
+        
         projectRepo.save(project);
-       
+        percentRepo.save(ps);
 
         model.addAttribute("projects", projectRepo.findAll());
         

@@ -53,7 +53,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, String name, int status, int price, int current, int size, String time, String start_time, Set<Skill> project_skills, Percentage percentage, Set<UserProject> userProjects) {
+    public Project(int id, String name, int status, int price, int current, int size, String time, String start_time, Set<Skill> project_skills, Set<UserProject> userProjects) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -65,6 +65,7 @@ public class Project {
         this.project_skills = project_skills;
         this.percentage = percentage;
         this.userProjects = userProjects;
+        this.percentage = new Percentage();
     }
 
     
