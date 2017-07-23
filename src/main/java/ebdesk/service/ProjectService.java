@@ -37,6 +37,7 @@ public class ProjectService {
         ArrayList<Project> projectList = (ArrayList<Project>) projectRepo.findAll();
 //        ArrayList<User> userLeaderList = new ArrayList<>();
         model.addAttribute("projects", projectList);
+        
         model.addAttribute("user",session.getAttribute("user"));
 ////        model.addAttribute("leader",userRepo.findByRoleAndProjectId(3,1));
 //        for(int i = 0 ; i<projectList.size();i++){
@@ -140,6 +141,9 @@ public class ProjectService {
 
 
     public String viewProject(Model model, int id, HttpSession session) {
+//        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(id);
+//        Project pro = projectRepo.findOne(id);
+        
         model.addAttribute("project",projectRepo.findOne(id));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,id));
         model.addAttribute("all_users",userRepo.findAllByRole(3));
@@ -258,6 +262,7 @@ public class ProjectService {
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -294,6 +299,7 @@ public class ProjectService {
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -330,6 +336,7 @@ public class ProjectService {
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -355,7 +362,10 @@ public class ProjectService {
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
     }
+    
+    
 }
