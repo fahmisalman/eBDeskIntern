@@ -606,7 +606,10 @@
                                               </div>
                                               <div class="bio-row" th:if="${user.role==3}">
                                                   <span>Project Percentage</span>:
-                                                  <p><span>1. Android </span>: <span th:text ="${percentages.percentage_1}+'%'"></span></p>
+                                                  <p><p><span>1. Android </span>: <span th:text ="${percentages.percentage_1}+'%'"></span></p>
+                                                  <p><span>Jumlah </span>:<span th:text ="${android}"></span></p>
+                                                  </p>
+                                                  
                                                   <p><span>2. Website </span>: <span th:text ="${percentages.percentage_2}+'%'"></span></p>
                                                   <p><span>3. Testing </span>: <span th:text ="${percentages.percentage_3}+'%'"></span></p>
                                                   <p><span>4. Riset </span>: <span th:text ="${percentages.percentage_4}+'%'"></span></p>
@@ -614,7 +617,10 @@
                                               </div>
                                               <div class="bio-row" th:if="${user.role==1}">
                                                   <span>Division Price</span>:
-                                                  <p><span>1. Android </span>: Rp. <span th:text ="${percentages.percentage_1}*${project.price}*0.01"></span></p>
+                                                  <p><p><span>1. Android </span>: Rp. <span th:text ="${percentages.percentage_1}*${project.price}*0.01"></span></p>
+                                                  <p><span>Jumlah Personil</span>:<span th:text ="${android}"></span></p>
+                                                  <p><span>@</span>: Rp. <span th:text ="(${percentages.percentage_1}*${project.price}*0.01)/${android}"</span></p>
+                                              </p>
                                                   <p><span>2. Website </span>: Rp. <span th:text ="${percentages.percentage_2}*${project.price}*0.01"></span></p>
                                                   <p><span>3. Testing </span>: Rp. <span th:text ="${percentages.percentage_3}*${project.price}*0.01"></span></p>
                                                   <p><span>4. Riset </span>: Rp. <span th:text ="${percentages.percentage_4}*${project.price}*0.01"></span></p>

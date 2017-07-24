@@ -141,7 +141,22 @@ public class ProjectService {
 
 
     public String viewProject(Model model, int id, HttpSession session) {
-//        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(id);
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
 //        Project pro = projectRepo.findOne(id);
         
         model.addAttribute("project",projectRepo.findOne(id));
@@ -152,12 +167,16 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(id));
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(id));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
     }
 
     public String updateProjectSetting(Model model, HttpSession session, Project project, int idLeader,int idLeaderBefore) {
-
+        
         User before = userRepo.findOne(idLeaderBefore);
         User after = userRepo.findOne(idLeader);
         Project pro = projectRepo.findOne(project.getId());
@@ -169,6 +188,7 @@ public class ProjectService {
         delete.setRoles(1);
         pro.setCurrent(pro.getCurrent()-1);
         upRepo.delete(delete);
+        
 
         //asumsi project leader sebelum di jadiin member biasa
 //        delete.setRoles(2);
@@ -181,12 +201,27 @@ public class ProjectService {
         add.setRoles(1);
         upRepo.save(add);
         int check2 = upRepo.findAllByProjectId(pro.getId()).size();
-
+        
         if(check1!=check2){
             pro.setCurrent(pro.getCurrent()+1);
         }
         projectRepo.save(pro);
-
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project.getId());
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
         model.addAttribute("project",projectRepo.findOne(project.getId()));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,project.getId()));
         model.addAttribute("all_users",userRepo.findAllByRole(3));
@@ -195,6 +230,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(project.getId()));
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -212,6 +251,22 @@ public class ProjectService {
         
         
         percentRepo.save(percentage);
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project_id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
         model.addAttribute("project",projectRepo.findOne(p.getId()));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,p.getId()));
         model.addAttribute("all_users",userRepo.findAllByRole(3));
@@ -220,6 +275,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
     }
@@ -252,7 +311,22 @@ public class ProjectService {
 
         projectRepo.save(p);
         skillRepo.save(s);
-
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project_id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
 
         model.addAttribute("project",projectRepo.findOne(p.getId()));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,p.getId()));
@@ -263,6 +337,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -288,6 +366,22 @@ public class ProjectService {
         }else{
             model.addAttribute("projectFull",true);
         }
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project_id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
 
 
 
@@ -300,6 +394,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -327,6 +425,22 @@ public class ProjectService {
         }
         projectRepo.save(p);
         userRepo.save(u);
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project_id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
 
         model.addAttribute("project",projectRepo.findOne(p.getId()));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,p.getId()));
@@ -337,6 +451,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
 
@@ -353,7 +471,23 @@ public class ProjectService {
 
         projectRepo.save(p);
         skillRepo.save(s);
-
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(project_id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
+        
         model.addAttribute("project",projectRepo.findOne(p.getId()));
         model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,p.getId()));
         model.addAttribute("all_users",userRepo.findAllByRole(3));
@@ -363,6 +497,10 @@ public class ProjectService {
         model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(p.getId()));
         model.addAttribute("projects", projectRepo.findAll());
         model.addAttribute("percentages",percentRepo.findAllbyProjects(p.getId()));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
     }
