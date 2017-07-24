@@ -407,7 +407,7 @@
                            <tbody >
                               <tr>
                                  <th><i class="icon_profile"></i> Name</th>
-                                  <th><i class="icon_profile"></i> Project Leader</th>
+                                  
                                  <th><i class="icon_mail_alt"></i> Price</th>
                                  <th><i class="icon_pin_alt"></i> Size</th>
                                  <th><i class="icon_mobile"></i> Time</th>
@@ -420,7 +420,7 @@
                               <tr th:each="project : ${projects}" class="clickable-row" th:attr="data-id=${project.id}">
 
                                   <td class="pencet" th:text="${project.name}"></td>
-                                  <td></td>
+                                  
                                   <td th:text="${'Rp ' + project.price}"></td>
                                   <td th:text="${project.current +'/'+ project.size}"></td>
                                   <td th:text="${project.time}"></td>

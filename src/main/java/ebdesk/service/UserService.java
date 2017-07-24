@@ -1,6 +1,8 @@
 package ebdesk.service;
 
+import ebdesk.model.Division;
 import ebdesk.model.User;
+import ebdesk.repository.DivisionRepository;
 import ebdesk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepo;
+    
+    @Autowired
+    DivisionRepository divRepo;
 
     public String viewAllEmployees(Model model,HttpSession session ){
         ArrayList<User> userList = (ArrayList<User>) userRepo.findAll();
@@ -48,6 +53,9 @@ public class UserService {
     }
 
     public String viewRegister(){
+//        ArrayList<Division> divList = (ArrayList<Division>) divRepo.findAll();
+//        model.addAttribute("divisions",divList);
+//        model.addAttribute("user",session.getAttribute("user"));
         return "index/register";
     }
 
