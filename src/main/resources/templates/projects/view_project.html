@@ -605,14 +605,20 @@
                                                   <p><span>Project Start Date </span>:  <span th:text ="${project.start_time}"></span></p>
                                               </div>
                                               <div class="bio-row" th:if="${user.role==3}">
-                                                  <span>Project Percentage</span>:
+                                                  <span>Project Percentages</span>:
                                                   <p><p><span>1. Android </span>: <span th:text ="${percentages.percentage_1}+'%'"></span></p>
-                                                  <p><span>Jumlah </span>:<span th:text ="${android}"></span></p>
+                                                  <p><span>Jumlah Personil</span>:<span th:text ="${android}"></span></p>
                                                   </p>
                                                   
-                                                  <p><span>2. Website </span>: <span th:text ="${percentages.percentage_2}+'%'"></span></p>
-                                                  <p><span>3. Testing </span>: <span th:text ="${percentages.percentage_3}+'%'"></span></p>
-                                                  <p><span>4. Riset </span>: <span th:text ="${percentages.percentage_4}+'%'"></span></p>
+                                                  <p><p><span>2. Website </span>: <span th:text ="${percentages.percentage_2}+'%'"></span></p>
+                                                  <p><span>Jumlah Personil</span>: <span th:text ="${website}"></span></p>
+                                              </p>
+                                              <p><p><span>3. Testing </span>: <span th:text ="${percentages.percentage_3}+'%'"></span></p>
+                                              <p><span>Jumlah Personil</span>: <span th:text ="${testing}"></span></p>
+                                              </p>
+                                              <p><p><span>4. Riset </span>: <span th:text ="${percentages.percentage_4}+'%'"></span></p>
+                                                <p><span>Jumlah Personil</span>: <span th:text ="${riset}"></span></p>
+                                              </p>
                                                   
                                               </div>
                                               <div class="bio-row" th:if="${user.role==1}">
