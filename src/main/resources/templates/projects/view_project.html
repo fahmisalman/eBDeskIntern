@@ -644,6 +644,10 @@
                                                   <p th:if ="${riset}!=0"><span>@</span>: Rp. <span th:text ="(${percentages.percentage_4}*${project.price}*0.01)/${riset}"</span></p>
                                                   <p th:if ="${riset}==0"><span>@</span>: Rp. <span th:text ="0"</span></p>
                                               </p>
+                                              <ul>
+                                                  <li><a class="" th:href="@{/viewDownload/{id}(id=${project.id})}">View Your Projects</a></li>
+                                              </ul>
+                                              
                                               </div>
                                               
 

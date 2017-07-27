@@ -46,6 +46,11 @@ public class ProjectController {
         int id = Integer.parseInt(id_project);
         return projectService.viewProject(m,id,s);
     }
+    @RequestMapping(value = "/viewDownload/{id_project}", method = RequestMethod.GET)
+    public String viewDownload(@PathVariable String id_project,Model m,HttpSession s){
+        int id = Integer.parseInt(id_project);
+        return projectService.viewDownload(m, id, s);
+    }
 
     @RequestMapping(value = "/viewMyProjects/{id_user}",method = RequestMethod.GET)
     public String viewMyProjects(@PathVariable String id_user,Model m,HttpSession s){

@@ -6,12 +6,17 @@ import ebdesk.repository.ProjectRepository;
 import ebdesk.repository.SkillRepository;
 import ebdesk.repository.UserProjectRepository;
 import ebdesk.repository.UserRepository;
+import java.io.File;
+import java.io.FileOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.apache.poi.ss.usermodel.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Created by asuss on 6/2/2017.
@@ -503,6 +508,95 @@ public class ProjectService {
         model.addAttribute("riset",div4);
         model.addAttribute("user",session.getAttribute("user"));
         return "projects/view_project";
+    }
+    public String viewDownload(Model model, int id, HttpSession session){
+        ArrayList<User> userList = (ArrayList<User>) userRepo.findAllByProjectsId(id);
+        int div1 = 0;
+        int div2 = 0;
+        int div3 = 0;
+        int div4 = 0;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getDivision().getId() == 1){
+                div1++;
+            } else if(userList.get(i).getDivision().getId() == 2){
+                div2++;
+            } else if(userList.get(i).getDivision().getId() == 3){
+                div3++;
+            } else if(userList.get(i).getDivision().getId() == 4){
+                div4++;
+            }
+        }
+        Project p = projectRepo.findOne(id);
+        User leader = userRepo.findByUserProjectRoleAndProjectId(1,id);
+        ArrayList<User> members = (ArrayList<User>) userRepo.findAllByProjectsId(id);
+        Percentage per = percentRepo.findAllbyProjects(id);
+        XSSFWorkbook workbook;
+        workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Employee Data");
+        Map<String, Object[]> data = new TreeMap<String, Object[]>();
+        data.put("1", new Object[] {"ID", "NAME", "LASTNAME", "DIVISION", "PROJECT NAME", "FEE"});
+        for(int i = 0;i < members.size(); i++){
+            int m = i + 2;
+            int hitung = 0;
+            if(members.get(i).getDivision().getId() == 1){
+                hitung = (p.getPrice()*per.getPercentage_1())/div1;
+            } else if(members.get(i).getDivision().getId() == 2){
+                hitung = (p.getPrice()*per.getPercentage_2())/div2;
+            } else if(members.get(i).getDivision().getId() == 3){
+                hitung = (p.getPrice()*per.getPercentage_3())/div3;
+            } else if(members.get(i).getDivision().getId() == 3){
+                hitung = (p.getPrice()*per.getPercentage_4())/div4;
+            }
+            data.put(String.valueOf(m), new Object[] {members.get(i).getId(), members.get(i).getFirst_name(), members.get(i).getLast_name(),members.get(i).getDivision().getName(),p.getName(),"Rp. "+hitung});
+        }  
+        //Iterate over data and write to sheet
+        Set<String> keyset = data.keySet();
+        int rownum = 0;
+        for (String key : keyset)
+        {
+            Row row = sheet.createRow(rownum++);
+            Object [] objArr = data.get(key);
+            int cellnum = 0;
+            for (Object obj : objArr)
+            {
+               Cell cell = row.createCell(cellnum++);
+               if(obj instanceof String)
+                    cell.setCellValue((String)obj);
+                else if(obj instanceof Integer)
+                    cell.setCellValue((Integer)obj);
+            }
+        }
+        try
+        {
+            //Write the workbook in file system
+            FileOutputStream out = new FileOutputStream(new File("Project "+p.getName()+".xlsx"));
+            workbook.write(out);
+            out.close();
+            System.out.println("Project "+p.getName()+".xlsx written successfully on disk.");
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    
+        
+//        Project pro = projectRepo.findOne(id);
+        
+        model.addAttribute("project",projectRepo.findOne(id));
+        model.addAttribute("leader",userRepo.findByUserProjectRoleAndProjectId(1,id));
+        model.addAttribute("all_users",userRepo.findAllByRole(3));
+        model.addAttribute("users",userRepo.findAllByRoleNotExistInUserProject(3,id));
+        model.addAttribute("members",userRepo.findAllByProjectsId(id));
+        model.addAttribute("requiredskills",skillRepo.findAllByProjectsId(id));
+        model.addAttribute("skills",skillRepo.findAllNotExistInProjectSkills());
+        model.addAttribute("percentages",percentRepo.findAllbyProjects(id));
+        model.addAttribute("android",div1);
+        model.addAttribute("website",div2);
+        model.addAttribute("testing",div3);
+        model.addAttribute("riset",div4);
+        model.addAttribute("user",session.getAttribute("user"));
+        return "projects/view_project";
+        
     }
     
     
