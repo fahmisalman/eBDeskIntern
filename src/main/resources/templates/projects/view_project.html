@@ -578,7 +578,7 @@
                                           <!--<h1>Bio Graph</h1>-->
 
 
-                                          <div class="row">
+                                          
                                               <div class="bio-row">
                                                   <p><span>Project Name </span>: <span th:text ="${project.name}"></span></p>
                                               </div>
@@ -604,54 +604,103 @@
                                               <div class="bio-row">
                                                   <p><span>Project Start Date </span>:  <span th:text ="${project.start_time}"></span></p>
                                               </div>
-                                              <div class="bio-row" th:if="${user.role==3}">
-                                                  <span>Project Percentages</span>:
-                                                  <p><p><span>1. Android </span>: <span th:text ="${percentages.percentage_1}+'%'"></span></p>
-                                                  <p><span>Jumlah Personil</span>:<span th:text ="${android}"></span></p>
-                                                  </p>
-                                                  
-                                                  <p><p><span>2. Website </span>: <span th:text ="${percentages.percentage_2}+'%'"></span></p>
-                                                  <p><span>Jumlah Personil</span>: <span th:text ="${website}"></span></p>
-                                              </p>
-                                              <p><p><span>3. Testing </span>: <span th:text ="${percentages.percentage_3}+'%'"></span></p>
-                                              <p><span>Jumlah Personil</span>: <span th:text ="${testing}"></span></p>
-                                              </p>
-                                              <p><p><span>4. Riset </span>: <span th:text ="${percentages.percentage_4}+'%'"></span></p>
-                                                <p><span>Jumlah Personil</span>: <span th:text ="${riset}"></span></p>
-                                              </p>
-                                                  
-                                              </div>
-                                              <div class="bio-row" th:if="${user.role==1}">
-                                                  <span>Division Price</span>:
-                                                  <p><p><span>1. Android </span>: Rp. <span th:text ="${percentages.percentage_1}*${project.price}*0.01"></span></p>
-                                                  <p><span>Jumlah Personil</span>: <span th:text ="${android}"></span></p>
-                                                  <p th:if ="${android}!=0"><span>@</span>: Rp. <span th:text ="(${percentages.percentage_1}*${project.price}*0.01)/${android}"</span></p>
-                                                  <p th:if ="${android}==0"><span>@</span>: Rp. <span th:text ="0"</span></p>
-                                              </p>
-                                              <p><p><span>2. Website </span>: Rp. <span th:text ="${percentages.percentage_2}*${project.price}*0.01"></span></p>
-                                              <p><span>Jumlah Personil</span>: <span th:text ="${website}"></span></p>
-                                                  <p th:if ="${website}!=0"><span>@</span>: Rp. <span th:text ="(${percentages.percentage_2}*${project.price}*0.01)/${website}"</span></p>
-                                                  <p th:if ="${website}==0"><span>@</span>: Rp. <span th:text ="0"</span></p>
-                                              </p>
-                                                  
-                                              <p><p><span>3. Testing </span>: Rp. <span th:text ="${percentages.percentage_3}*${project.price}*0.01"></span></p>
-                                              <p><span>Jumlah Personil</span>: <span th:text ="${testing}"></span></p>
-                                              <p th:if ="${testing}!=0"><span>@</span>: Rp. <span th:text ="(${percentages.percentage_3}*${project.price}*0.01)/${testing}"></span></p>
-                                              <p th:if ="${testing}==0"><span>@</span>: Rp. <span th:text ="0"></span></p>
-                                              </p>
-                                              <p><p><span>4. Riset </span>: Rp. <span th:text ="${percentages.percentage_4}*${project.price}*0.01"></span></p>
-                                                  <p><span>Jumlah Personil</span>: <span th:text ="${riset}"></span></p>
-                                                  <p th:if ="${riset}!=0"><span>@</span>: Rp. <span th:text ="(${percentages.percentage_4}*${project.price}*0.01)/${riset}"</span></p>
-                                                  <p th:if ="${riset}==0"><span>@</span>: Rp. <span th:text ="0"</span></p>
-                                              </p>
-                                              <ul>
-                                                  <li><a class="" th:href="@{/viewDownload/{id}(id=${project.id})}">Export Project Details</a></li>
-                                              </ul>
                                               
-                                              </div>
                                               
 
-                                          </div>
+                                          
+                                      </div>
+                                      <div class="panel-body bio-graph-info">
+                                          
+                                              <div class="bio-row" th:if="${user.role==3}">
+                                                  <section>
+                                                    <header class="panel-heading">Division Percentage</header>
+                                                    <table class="table table-responsive table-striped table-advance">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Division</th>
+                                                                <th>Total Member</th>
+                                                                <th>Percentage (%)</th>
+                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Android</td>
+                                                                <td th:text="${android}"></td>
+                                                                <td th:text ="${percentages.percentage_1}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Website</td>
+                                                                <td th:text="${website}"></td>
+                                                                <td th:text ="${percentages.percentage_2}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Testing</td>
+                                                                <td th:text="${testing}"></td>
+                                                                <td th:text ="${percentages.percentage_3}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Riset</td>
+                                                                <td th:text="${riset}"></td>
+                                                                <td th:text ="${percentages.percentage_4}"></td>
+                                                                </tr>
+                                                        </tbody>
+                                                    </table>
+                                                  </section>
+                                              </div>
+                                              <div class="bio-row" th:if="${user.role==1}">
+                                                  <section>
+                                                    <header class="panel-heading">Division Price</header>
+                                                    <table class="table table-responsive table-striped table-advance">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Division</th>
+                                                                <th>Percentage (%)</th>
+                                                                <th>Total Member</th>
+                                                                <th>Permember (Rp)</th>
+                                                                <th>Total (Rp)</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Android</td>
+                                                                <td th:text ="${percentages.percentage_1}"></td>
+                                                                <td th:text="${android}"></td>
+                                                                <td th:if ="${android}!=0" th:text ="(${percentages.percentage_1}*${project.price}*0.01)/${android}"></td>
+                                                                <td th:if ="${android}==0" th:text ="0"></td>
+                                                                <td th:text ="${percentages.percentage_1}*${project.price}*0.01"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Website</td>
+                                                                <td th:text ="${percentages.percentage_2}"></td>
+                                                                <td th:text="${website}"></td>
+                                                                <td th:if ="${website}!=0" th:text ="(${percentages.percentage_2}*${project.price}*0.01)/${website}"></td>
+                                                                <td th:if ="${website}==0" th:text ="0"></td>
+                                                                <td th:text ="${percentages.percentage_2}*${project.price}*0.01"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Testing</td>
+                                                                <td th:text ="${percentages.percentage_3}"></td>
+                                                                <td th:text="${testing}"></td>
+                                                                <td th:if ="${testing}!=0" th:text ="(${percentages.percentage_3}*${project.price}*0.01)/${testing}"></td>
+                                                                <td th:if ="${testing}==0" th:text ="0"></td>
+                                                                <td th:text ="${percentages.percentage_3}*${project.price}*0.01"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Riset</td>
+                                                                <td th:text ="${percentages.percentage_4}"></td>
+                                                                <td th:text="${riset}"></td>
+                                                                <td th:if ="${riset}!=0" th:text ="(${percentages.percentage_4}*${project.price}*0.01)/${riset}"></td>
+                                                                <td th:if ="${riset}==0" th:text="0"></td>
+                                                                <td th:text ="${percentages.percentage_4}*${project.price}*0.01"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                  </section>
+                                                  
+                                              
+                                              <p><a th:href="@{/viewDownload/{id}(id=${project.id})}" class="btn btn-success tooltips exportDoc" data-toggle="modal tooltip" data-placement="top" th:attr="data-idproject=${project.id}">Export Project Details</a></p>
+                                                  
+                                              
+                                              
+                                              </div>
+                                          
                                       </div>
 
                                         <div class="panel-body bio-graph-info">
@@ -920,7 +969,15 @@
 
               }
           });
+           $(".exportDoc").click(function() {
+              var cek = confirm("Export this Project to Ms. Excel?")
+              if (cek){
+                  
+              }else{
+
+              }
       });
+  });
   </script>
 
   <script th:inline="javascript">
@@ -933,6 +990,7 @@
               alert("Project Leader tidak dapat di remove, Ganti dulu Leadernya!");
           }
       }
+      
 
 
   </script>
